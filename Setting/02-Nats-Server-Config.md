@@ -1,5 +1,6 @@
 # 02-Nats-Server-Config
 - [01-nats-server-installation](01-nats-server-installation.md)에서 설치한 nats-server 프로그램을 실행하기 위해 필요한 환경설정 과정 정리
+<br>
 
 ## Table of Contents
 - [nats-server 서버 환경설정](#nats-server-서버-환경설정)
