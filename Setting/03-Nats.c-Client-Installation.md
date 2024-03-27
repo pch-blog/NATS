@@ -10,7 +10,7 @@
 <br><br>
 
 ## nats.c 다운로드 및 설치
-### TLS OFF, Streaming OFF 상태 설치
+### - TLS OFF, Streaming OFF 상태 설치
 - 해당 설치 과정은 CentOS 7에서 진행하였고, 두 기능을 OFF 후 컴파일하면 다른 문제 없이 컴파일 및 설치 가능
 ```shell
 $ git clone https://github.com/nats-io/nats.c.git
@@ -24,7 +24,7 @@ $ sudo make install
   - <span style="color:red"><b>TLS : CentOS 7 기준 openssl-devel 패키지 버전이 낮아서 컴파일 에러</b></span>
   - <span style="color:red"><b>Streaming : CentOS 7 기준 protobuf-c 버전이 낮고 Nats.c가 요구하는 protobuf-c 최소 요구 버전 및 최신 버전 컴파일에 문제가 있음</b></span>
 
-### TLS ON, Streaming ON  상태 설치
+### - TLS ON, Streaming ON  상태 설치
 - 해당 설치 과정은 RHEL 8.9와 Rocky 9.2에서 진행한 과정
 - 필요한 패키지 설치 및 업데이트
 ```shell
@@ -46,7 +46,7 @@ $ cmake .. -DNATS_BUILD_WITH_TLS=ON -DNATS_BUILD_STREAMING=ON \
 $ sudo make install
 ```
 
-### CMake 옵션
+### - CMake 옵션
 - 설치 과정 중 사용한 CMake 옵션
 ```shell
 # TLS 사용여부 (default - ON)
@@ -63,7 +63,7 @@ $ sudo make install
 <br>
 
 ## nats.c 설치 오류
-### 오류1. CMake(Cross-platform make system) 버전이 낮은 경우
+### - 오류1. CMake(Cross-platform make system) 버전이 낮은 경우
 - CentOS 7에서 설치할 때 나온 오류로 수동으로 CMake 버전 업데이트
 ```shell
 $ wget https://github.com/Kitware/CMake/releases/download/v3.26.5/cmake-3.26.5.tar.gz
@@ -77,7 +77,7 @@ $ sudo make install
 ```shell
 $ sudo yum update cmake
 ```
-### 오류2. protobuf-c 헤더를 못 찾는 경우
+### - 오류2. protobuf-c 헤더를 못 찾는 경우
 - Rocky 9.2에서 yum search를 하면 protobuf-c-devel 패키지를 찾을 수 없음.
 - protobuf-c 코드를 github에서 clone
 ```shell
@@ -91,7 +91,7 @@ $ cmake ..  -D....... -DNATS_PROTOBUF_INCLUDE_DIR="github에서 protobuf-c를 cl
 
 ## nats.c 라이브러리로 프로그램 개발
 - [Nats.c Documentation](http://nats-io.github.io/nats.c/topics.html)
-### Makefile 라이브러리 추가
+### - Makefile 라이브러리 추가
 ```make
 # 동적 라이브러리
 NATSLIBS = -lnats
@@ -105,7 +105,7 @@ NATSLIBS = -lnats_static -lssl -lcrypto
 NATSLIBS = -lnats_static -lprotobuf-c -lssl -lcrypto
 ```
 
-### 클라이언트 개발 기타 설명
+### - 클라이언트 개발 기타 설명
 - 전체적인 함수 목록이나 설명은 [여기](http://nats-io.github.io/nats.c/topics.html)를 참조한다.
 - 전반적으로 스레드가 처리하는 것으로 보이며 "ps -efL | grep 프로세스명" 명령으로 확인하면 총 6개(메인1, 스레드5개) 확인.
 - nats-server를 다운 시킨 후 확인하면 스레드 4개로 확인.
@@ -115,15 +115,15 @@ NATSLIBS = -lnats_static -lprotobuf-c -lssl -lcrypto
 - natsOptions_SetAllowReconnect 함수를통해 재연결허용을 해제하면 메세지 발행 함수가 바로 에러 리턴.
 - 재연결 기능을 옵션 설정을 통해 끄고 별도의 재연결 시도 로직을 만들어서 처리
 
-### pthread 관련 처리 (오픈 소스 수정 영역)
+### - pthread 관련 처리 (오픈 소스 수정 영역)
 - NATS C클라이언트 코드 내에서 pthread_create, 등 phtread 함수 확인
 - 메인 스레드만 특정 시그널을 받기 위해 다른 스레드에서 특정 시그널 블럭 시킬 방법 필요
 
-### 연결 함수 차이
+### - 연결 함수 차이
 - natsConnection_ConnectTo : 기본 옵션 사용
 - natsConnection_Connect : 옵션 객체가 NULL이면 natsConnection_ConnectTo 호출 후 옵션 clone
 
-### 기본 옵션 DEFINE
+### - 기본 옵션 DEFINE
 - nats.c/src/opts.h
 ```c
 #define NATS_OPTS_DEFAULT_MAX_RECONNECT         (60)
@@ -138,7 +138,7 @@ NATSLIBS = -lnats_static -lprotobuf-c -lssl -lcrypto
 #define NATS_OPTS_DEFAULT_RECONNECT_JITTER_TLS  (1000)              // 1 second
 ```
 
-### 연결 상태 확인 함수
+### - 연결 상태 확인 함수
 - natsConnStatus natsConnection_Status(natsConnection *nc)
 - nats.c/src/status.h
 ```c

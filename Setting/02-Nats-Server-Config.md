@@ -10,7 +10,7 @@
 ## nats-server 서버 환경설정
 - [Configuring NATS Server](https://docs.nats.io/running-a-nats-service/configuration)
 - 필요한 설정값을 추가하여 환경설정 파일을 작성한다.
-### 환경설정 파일 작성
+### - 환경설정 파일 작성
 - PORT 설정
 ```shell
 # nats-server의 기본 포트
@@ -32,7 +32,7 @@ logfile_size_limit: 1G
 # DEBUG 수준의 로그 설정
 debug: true | false
 ```
-### 환경설정 파일 예시
+### - 환경설정 파일 예시
 - "nats.cfg" 작성
 ```shell
 # PORT
@@ -47,7 +47,7 @@ log_file: /tmp/nats-server.log
 logtime: true
 logfile_size_limit: 1G
 ```
-### 환경설정 파일 테스트
+### - 환경설정 파일 테스트
 ```shell
 $ nats-server -t "환경설정 파일"
 ```
